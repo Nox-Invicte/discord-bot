@@ -5,6 +5,12 @@ module.exports = {
 	async execute(interaction) {
 		if (!interaction.isChatInputCommand()) return;
 
+		// Check if the command is run in a DM
+		if (!interaction.guild) {
+			await interaction.reply({ content: 'Commands can only be run in Servers', flags: MessageFlags.Ephemeral });
+			return;
+		}
+
 		const command = interaction.client.commands.get(interaction.commandName);
 
 		if (!command) {
