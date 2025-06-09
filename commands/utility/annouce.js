@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -9,6 +9,12 @@ module.exports = {
                 .setDescription('The message you want to announce.')
                 .setRequired(true)),
 	async execute(interaction) {
-		await interaction.reply('## :loudspeaker: :loudspeaker: **Announcement:** \n' + interaction.options.getString('message'));
+        const embed = new EmbedBuilder()
+            .setColor('#0099ff')
+            .setTitle(':loudspeaker: Announcement :loudspeaker:')
+            .setDescription(interaction.options.getString('message'))
+            .setTimestamp()
+            .setFooter({ text: 'Announcement from ' + interaction.user.username });
+		await interaction.reply({embeds: [embed]});
 	},
 };
