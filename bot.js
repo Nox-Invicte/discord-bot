@@ -1,7 +1,9 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Collection, GatewayIntentBits } = require('discord.js');
-const { token } = require('./config.json');
+const dotenv = require('dotenv');
+dotenv.config({ path: './process.env' }); // Load environment variables from process.env file
+const { token } = process.env;
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
