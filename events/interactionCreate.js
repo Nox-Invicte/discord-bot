@@ -3,6 +3,41 @@ const { Events, MessageFlags } = require('discord.js');
 module.exports = {
 	name: Events.InteractionCreate,
 	async execute(interaction) {
+if (interaction.isModalSubmit()) {
+			if (interaction.customId === 'apply') {
+				const nameValue = interaction.fields.getTextInputValue('name');
+				const whyValue = interaction.fields.getTextInputValue('why');
+				const factionsValue = interaction.fields.getTextInputValue('factions');
+				const reasonValue = interaction.fields.getTextInputValue('reason');
+
+				console.log(`Name: ${nameValue}`);
+				console.log(`Why: ${whyValue}`);
+				console.log(`Factions: ${factionsValue}`);
+				console.log(`Reason: ${reasonValue}`);
+
+				// Send DM to guild owner
+				try {
+					const ownerId = interaction.guild.ownerId;
+					const owner = await interaction.client.users.fetch(ownerId);
+					await owner.send(
+						`# New Mod Application Received:\n` +
+						`## Name:\n${nameValue}\n\n` +
+						`## Why:\n ${whyValue}\n\n` +
+						`## Factions:\n ${factionsValue}\n\n` +
+						`## Reason:\n ${reasonValue}`
+					);
+				} catch (error) {
+					console.error('Failed to send DM to guild owner:', error);
+				}
+
+				await interaction.reply({
+					content: `Thank you for your application, ${nameValue}! Your responses have been recorded.`,
+					ephemeral: true
+				});
+				return;
+			}
+		}
+
 		if (!interaction.isChatInputCommand()) return;
 
 		// Check if the command is run in a DM
