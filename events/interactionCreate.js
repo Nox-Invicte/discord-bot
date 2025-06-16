@@ -3,7 +3,7 @@ const { Events, MessageFlags } = require('discord.js');
 module.exports = {
 	name: Events.InteractionCreate,
 	async execute(interaction) {
-if (interaction.isModalSubmit()) {
+		if (interaction.isModalSubmit()) {
 			if (interaction.customId === 'apply') {
 				const nameValue = interaction.fields.getTextInputValue('name');
 				const whyValue = interaction.fields.getTextInputValue('why');
@@ -34,6 +34,14 @@ if (interaction.isModalSubmit()) {
 					content: `Thank you for your application, ${nameValue}! Your responses have been recorded.`,
 					ephemeral: true
 				});
+				return;
+			}
+		}
+
+		if (interaction.isButton()) {
+			if (interaction.customId === 'invite') {
+				const inviteLink = process.env.INVITE; // Ensure you have the invite link in your environment variables
+				await interaction.reply({ content: `Click [here](${inviteLink}) to invite me to your server!`, flags: MessageFlags.Ephemeral });
 				return;
 			}
 		}
