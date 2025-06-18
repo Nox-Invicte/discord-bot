@@ -12,6 +12,7 @@ module.exports = {
             option.setName('reason')
                 .setDescription('Reason for kicking the user'))
         .setDefaultMemberPermissions(0x00000002), // Only allow users with the 'Kick Members' permission to use this command
+        permissions: ['KickMembers'], // Ensure the command can only be used by users with the 'Kick Members' permission
 
     async execute(interaction) {
         const user = interaction.options.getUser('user');
