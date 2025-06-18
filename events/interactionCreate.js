@@ -1,4 +1,4 @@
-const { Events, MessageFlags } = require('discord.js');
+const { Events, MessageFlags, EmbedBuilder } = require('discord.js');
 
 module.exports = {
 	name: Events.InteractionCreate,
@@ -19,20 +19,23 @@ module.exports = {
 				try {
 					const ownerId = interaction.guild.ownerId;
 					const owner = await interaction.client.users.fetch(ownerId);
+					const embed = new EmbedBuilder()
+						.setColor('#0099ff')
+						.setTitle('New Mod Application')
+						.setDescription(`Name: ${nameValue}\nWhy: ${whyValue}\nFactions: ${factionsValue}\nReason: ${reasonValue}`)
+						.setTimestamp();
+
 					await owner.send(
-						`# New Mod Application Received:\n` +
-						`## Name:\n${nameValue}\n\n` +
-						`## Why:\n ${whyValue}\n\n` +
-						`## Factions:\n ${factionsValue}\n\n` +
-						`## Reason:\n ${reasonValue}`
-					);
+						`You have received a new mod application from ${interaction.user.tag} in ${interaction.guild.name}.`);
+					await owner.send({embeds: [embed]});
+					console.log(`DM sent to guild owner: ${owner.tag}`);
 				} catch (error) {
 					console.error('Failed to send DM to guild owner:', error);
 				}
 
 				await interaction.reply({
 					content: `Thank you for your application, ${nameValue}! Your responses have been recorded.`,
-					ephemeral: true
+					flags: MessageFlags.Ephemeral
 				});
 				return;
 			}
