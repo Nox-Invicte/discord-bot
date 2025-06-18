@@ -1,4 +1,4 @@
-const {SlashCommandBuilder,ActionRowBuilder,ModalBuilder,TextInputBuilder,TextInputStyle} = require("discord.js");
+const {SlashCommandBuilder,ActionRowBuilder,ModalBuilder,TextInputBuilder,TextInputStyle, MessageFlags} = require("discord.js");
 
 
 module.exports = {
@@ -70,7 +70,7 @@ module.exports = {
 
       await interaction.reply({
         content: `Thank you for your application, ${nameValue}! Your responses have been recorded.`,
-        ephemeral: true
+        flags: MessageFlags.Ephemeral
       });
     }
   }
