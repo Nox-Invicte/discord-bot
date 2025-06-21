@@ -1,6 +1,6 @@
-# discord-bot
+# Poseidon
 
-discord-bot is a versatile Discord bot built with discord.js, designed to provide a variety of utility commands and event-driven features to enhance your Discord server experience.
+Poseidon is a versatile Discord bot built with discord.js, designed to provide a variety of utility commands and event-driven features to enhance your Discord server experience.
 
 ## Features
 
